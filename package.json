@@ -1,0 +1,13 @@
+{
+  
+  "name": "xadrez",
+  "version": "1.0.0",
+  "author": "seu estagiário s2",
+  "description": "jogo de xadrez :p",
+  "main": "index.js",
+  "license": "ISC",
+  "scripts":{
+    "start": "node index.js"
+  }
+    
+}
