@@ -1,9 +1,9 @@
 {
   
-  "name": "xadrez",
+  "name": "chess",
   "version": "1.0.0",
-  "author": "seu estagiário s2",
-  "description": "jogo de xadrez :p",
+  "author": "your intern s2",
+  "description": "chess game",
   "main": "index.js",
   "license": "ISC",
   "scripts":{

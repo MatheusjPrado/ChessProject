@@ -1,97 +1,94 @@
-import readline from 'readline'; 
-import Peao from './classes/Peao.js';
-import Torre from './classes/Torre.js';
-import Rei from './classes/Rei.js';
-import Tabuleiro from './classes/Tabuleiro.js';
+import readline from 'readline';
+import Pawn from './Pieces/Pawn.js';
+import Rook from './Pieces/Rook.js';
+import King from './Pieces/King.js';
+import Board from './Board.js';
 
-const rl=readline.createInterface({
-
-    input:process.stdin,output:process.stdout
-
+const rl= readline.createInterface({
+    input: process.stdin, output: process.stdout
 });
 
 
-function Menu():void{
+enum PieceType{
+    PAWN = 'peao',
+    ROOK ='torre',
+    KING = 'rei'
+}
 
+function showMenu():void{
     console.log("\nEscolha uma opcao:");
     console.log("1 - Colocar peca");
     console.log("2 - Mover peca");
     console.log("3 - Sair");
-
 }
 
-
-function perguntar(coisa:string):Promise<string>{
-
-    return new Promise(resolve=>{rl.question(coisa,resolve)});
-
+function ask(question:string):Promise<string>{
+    return new Promise(resolve=>{rl.question(question, resolve)});
 }
 
-
-async function main():Promise<void>{ //isso é mt estranho pqp
-
-    let tabuleiro=new Tabuleiro();
-    let opcao="";
+async function main():Promise<void>{
+    let board=new Board();
+    let option= "";
 
     while(true){
 
-        tabuleiro.imprimirTabuleiro();  // imprime o tabuleiro
+        board.printBoard();  // imprime o tabuleiro
 
-        Menu();
-        opcao=await perguntar("\nOpção: ");
+        showMenu();
+        option= await ask("\nOpção: ");
 
-        if(opcao==="1"){
+        switch(option){
+            case "1":
+                    let pieceTypeInput= await ask("\nQual peça deseja colocar? (peao, torre, rei): ");
+                    pieceTypeInput=pieceTypeInput.toLowerCase(); // faz com que a entrada fique em minusculo pra depois ser transf em maiusculo
 
-            let tipo=await perguntar("\nQual peça deseja colocar? (peao, torre, rei): ");
-            tipo=tipo.toLowerCase(); // faz com que a entrada fique em minusculo pra depois ser transf em maiusculo
+                    let position=await ask("Informe a posição (ex: A2): ");
+                    position= position.toUpperCase();
 
-            let posicao=await perguntar("Informe a posição (ex: A2): ");
-            posicao=posicao.toUpperCase();
+                    let piece; 
 
-            let peca;
+                    switch(pieceTypeInput){
+                        case PieceType.PAWN:
+                            piece= new Pawn(position);
+                            break;
+                        case PieceType.ROOK:
+                            piece=new Rook(position);
+                            break;
+                        case PieceType.KING:
+                            piece=new King(position);
+                            break;
+                        default:
+                            console.log("Tipo de peça inválida");
+                            continue;
+                    }
 
-            if(tipo==="peao"){
+                    board.placePiece(piece, position);
+                break;
 
-                peca=new Peao(posicao);
+            case "2":
+                    let currentPosition=await ask("Informe a posição atual da peça que deseja mover: ");
+                    currentPosition= currentPosition.trim().toUpperCase();
 
-            }else if(tipo==="torre"){
+                    let newPosition=await ask("Informe a nova posição: ");
+                    newPosition=newPosition.trim().toUpperCase();
 
-                peca=new Torre(posicao);
+                    const pieceFromBoard= board.getPiece(currentPosition);
 
-            }else if(tipo==="rei"){
+                    if(pieceFromBoard){
+                        pieceFromBoard.move(newPosition);
+                    }else{
+                        console.log(`\nNenhuma peça encontrada na posição ${currentPosition}`);
+                    }
+                break;
 
-                peca=new Rei(posicao);
-
-            }else{
-
-                console.log("Tipo de peça inválida");
-                continue;
-
-            }
-
-            tabuleiro.colocarPeca(peca,posicao);
-
-        }else if(opcao==="2"){
-
-            // Agora, além da nova posição, precisamos saber de qual peça mover
-            let posicaoAtual=await perguntar("Informe a posição atual da peça que deseja mover: ");
-            posicaoAtual=posicaoAtual.trim().toUpperCase();
-
-            let novaPosicao=await perguntar("Informe a nova posição: ");
-            novaPosicao=novaPosicao.trim().toUpperCase();
-            tabuleiro.moverPeca(posicaoAtual,novaPosicao);
-
-        }else if(opcao==="3"){
-
-            console.log("\nfim do programa :)\n");
-            rl.close(); // fecha a entrada de dados
-            process.exit(0); // encerra o programa
-
-        }else{
-
-            console.log("\nOpção inválida, tente novamente");
-
+            case "3":
+                console.log("\nFim do programa :)\n");
+                rl.close(); // fecha a entrada de dados
+                process.exit(0); // encerra o programa
+                break;
+            default:
+                console.log("\nOpção inválida, tente novamente");
         }
     }
-}
-main();
+}main();
+
