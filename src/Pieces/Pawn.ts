@@ -1,6 +1,6 @@
-import PecaXadrez from './ChessPiece.js';
+import ChessPiece from './ChessPiece.js';
 
-class Pawn extends PecaXadrez{  // herança
+class Pawn extends ChessPiece{  // herança
 
     constructor(position:string){
         super('peao', position);
