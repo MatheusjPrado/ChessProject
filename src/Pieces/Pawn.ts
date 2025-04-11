@@ -3,10 +3,10 @@ import ChessPiece from './ChessPiece.js';
 class Pawn extends ChessPiece{  // herança
 
     constructor(position:string){
-        super('peao', position);
+        super('pawn', position);
     }
 
-    validMove(newPosition:string): boolean{ 
+    validMove(newPosition:string):boolean{ 
         let currentColumn=this.position[0].toUpperCase(); // isso daqui faz com que ele pegue a posição 0 da string e coloque em cacha alta. Ex: a->A
         let currentRow=parseInt(this.position[1]); // pego a posição 1, que é o numero mas faz parte de uma string e retorno como inteiro
         let newColumn=newPosition[0].toUpperCase(); 

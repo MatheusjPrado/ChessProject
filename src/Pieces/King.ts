@@ -3,7 +3,7 @@ import ChessPiece from './ChessPiece.js';
 class King extends ChessPiece{  // herança
 
     constructor(position:string){
-        super('rei', position);
+        super('king', position);
     }
 
     validMove(newPosition:string):boolean{
@@ -29,7 +29,7 @@ class King extends ChessPiece{  // herança
     }
     
     getPiece():string{
-        return "R";
+        return "K";
     }
 }
 

@@ -13,18 +13,18 @@ class Board{
 
     placePiece(piece:ChessPiece, position:string):void{
         if(!this.validPosition(position)){
-            console.log('\nPosição inválida :p');
+            console.log('\nInvalid position');
             return;
         }
         
         if(this.pieceAtPosition(position)){ 
-            console.log(`\nJá existe uma peça na posição ${position}`);
+            console.log(`\nThere is already a piece at position ${position}`);
             return;
         }
         
         piece.position=position;
         this.pieces.push(piece);  // isso add a peça no array de peças
-        console.log(`\nA peça ${piece.type} foi colocada na posição ${position}`);
+        console.log(`\nThe piece ${piece.type} was placed at position ${position}`);
     }
     
     //essa funcao é usada pra ver se tem uma peça na posição informada

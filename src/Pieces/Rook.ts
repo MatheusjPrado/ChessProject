@@ -24,7 +24,7 @@ class Rook extends ChessPiece{
     } 
 
     getPiece():string{
-        return 'T';
+        return 'R';
     }
 
 }

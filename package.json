@@ -1,8 +1,8 @@
 {
   
   "name": "chess",
-  "version": "1.0.0",
-  "author": "your intern s2",
+  "version": "1.0.1",
+  "author": "your intern",
   "description": "chess game",
   "main": "index.js",
   "license": "ISC",

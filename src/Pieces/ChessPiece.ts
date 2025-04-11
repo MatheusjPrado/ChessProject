@@ -12,7 +12,7 @@ abstract class ChessPiece{
     abstract move(newPosition: string):void;
   
     getPiece():string{
-        return 'oiRodrigo';
+        return 'x';
     }
   
 }
